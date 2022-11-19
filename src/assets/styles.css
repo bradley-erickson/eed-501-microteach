@@ -12,3 +12,7 @@ pre {
   font-size: 24px;
   text-align: center;
 }
+.rounded-opposites {
+    border-top-left-radius: 0.5rem !important;
+    border-bottom-right-radius: 0.5rem !important
+}

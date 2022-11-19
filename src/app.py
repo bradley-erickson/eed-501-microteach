@@ -1,4 +1,5 @@
 # package imports
+import base64
 import dash
 from dash import html, dcc, clientside_callback, ClientsideFunction, Output, Input, State
 import dash_bootstrap_components as dbc
@@ -44,13 +45,17 @@ overview = dbc.Row(
             dbc.Card(
                 [
                     html.H2('Purpose'),
-                    'reason to loop'
+                    'Repeat some ',
+                    html.Div('code', className='d-inline-block bg-info p-1 text-white border border-dark mb-1'),
+                    ' whenever a ',
+                    html.Div('condition', className='d-inline-block bg-primary border rounded-opposites p-1 text-white border-dark'),
+                    ' is true.'
                 ],
                 body=True,
-                class_name='text-center'
+                class_name='text-center mb-4'
             ),
-            md=4,
-            xl=3
+            md=5,
+            xl=4
         ),
         dbc.Col(
             dbc.Card(
@@ -66,8 +71,8 @@ overview = dbc.Row(
                 ],
                 body=True
             ),
-            md=4,
-            xl=3
+            md=5,
+            xl=4
         )
     ],
     id='overview',
@@ -77,23 +82,39 @@ overview = dbc.Row(
 )
 
 
+def b64_image(image_filename):
+    with open(image_filename, 'rb') as f:
+        image = f.read()
+    return 'data:image/png;base64,' + base64.b64encode(image).decode('utf-8')
+
+
 loops = {
     'while': {
         'code': 'int i = 0;\nwhile (i < 5) {\n\trepeatedCode();\n\ti++;\n}',
         'name': 'While',
-        'use-cases': ''
+        'purpose': 'Run code any number of times [0, ∞)',
+        'use-cases': [
+            'Listening for events',
+            'Connecting to servers',
+            'Parsing text with unknown lenght'
+        ]
     },
     'for': {
         'code': 'for (int i = 0; i < 5; i++) {\n\trepeatedCode();\n}',
         'name': 'For',
-        'use-cases': ''
+        'purpose': 'Run code a set number of times [0, X]',
+        'use-cases': [
+            'Create visuals for each item'
+        ]
     },
     'do-while': {
         'code': 'int i = 0;\ndo {\n\trepeatedCode();\n\ti++;\n} while (i < 5);',
         'name': 'Do While',
+        'purpose': 'Run code at least once, but can repeat any number of times [1, ∞)',
         'use-cases': ''
     }
 }
+
 
 def create_loop_card(loop):
     l = loops[loop]
@@ -101,29 +122,53 @@ def create_loop_card(loop):
         [
             dbc.Card(
                 [
-                    html.H3(l['name'], className='text-center'),
-                    dcc.Markdown(f'```java\n{l["code"]}\n```'),
-                    html.Img(
-                        src=f'assets/{loop} loop.png',
-                        width='100%'
+                    html.H2(l['name'], className='text-center'),
+                    html.H4('Purpose:'),
+                    html.P(l['purpose']),
+                    dbc.Row(
+                        [
+                            dbc.Col(
+                                [
+                                    html.H4('Structure:'),
+                                    html.Img(
+                                        src=b64_image(f'assets/{loop} loop.png'),
+                                        width='100%'
+                                    )
+                                ],
+                                md=6
+                            ),
+                            dbc.Col(
+                                [
+                                    html.H4('Example Code:'),
+                                    dcc.Markdown(f'```java\n{l["code"]}\n```'),
+                                    html.H4('Use Cases:'),
+                                    html.Ul([html.Li(u) for u in l['use-cases']]) if type(l['use-cases']) == list else html.P(l['use-cases'])
+                                ],
+                                md=6
+                            )
+                        ]
                     )
                 ],
                 body=True
             )
         ],
-        md=4,
-        xl=3
+        md=8,
+        xl=6
     )
     return card
 
 
 types_of_loops = ['while', 'for', 'do-while']
-tol_cards = dbc.Row(
-    [create_loop_card(loop) for loop in types_of_loops],
-    id='types',
-    justify='center',
-    align='center',
-    class_name='h-100 w-100'
+tol_cards = html.Div(
+    [
+        dbc.Row(
+            create_loop_card(loop),
+            id=loop,
+            justify='center',
+            align='center',
+            class_name='h-100 w-100'
+        ) for loop in types_of_loops
+    ]
 )
 
 next = dbc.Button(
@@ -145,7 +190,7 @@ prev = dbc.Button(
 def serve_layout():
     return dbc.Container(
         [
-            dcc.Location(id='location', hash='home'),
+            dcc.Location(id='location'),
             dbc.Row(
                 [
                     intro,
