@@ -1,0 +1,22 @@
+
+
+pre {
+    padding: 4px;
+    background-color: var(--bs-gray-200) !important;
+}
+.btn-circle.btn-xl {
+  width: 70px;
+  height: 70px;
+  padding: 10px 16px;
+  border-radius: 35px;
+  font-size: 24px;
+  text-align: center;
+}
+.rounded-opposites {
+    border-top-left-radius: 0.5rem !important;
+    border-bottom-right-radius: 0.5rem !important
+}
+
+.h2, h2, .h3, h3 {
+    text-align:center!important
+}

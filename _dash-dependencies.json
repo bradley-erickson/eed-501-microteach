@@ -1,0 +1,63 @@
+[
+  {
+    "clientside_function": {
+      "function_name": "change_pages",
+      "namespace": "clientside"
+    },
+    "inputs": [
+      {
+        "id": "prev",
+        "property": "n_clicks"
+      },
+      {
+        "id": "next",
+        "property": "n_clicks"
+      },
+      {
+        "id": "toc-home",
+        "property": "n_clicks"
+      },
+      {
+        "id": "toc-what-is",
+        "property": "n_clicks"
+      },
+      {
+        "id": "toc-types",
+        "property": "n_clicks"
+      },
+      {
+        "id": "toc-examples",
+        "property": "n_clicks"
+      },
+      {
+        "id": "toc-end",
+        "property": "n_clicks"
+      }
+    ],
+    "long": null,
+    "output": "location.hash",
+    "prevent_initial_call": false,
+    "state": [
+      {
+        "id": "location",
+        "property": "hash"
+      }
+    ]
+  },
+  {
+    "clientside_function": {
+      "function_name": "update_icons",
+      "namespace": "clientside"
+    },
+    "inputs": [
+      {
+        "id": "location",
+        "property": "hash"
+      }
+    ],
+    "long": null,
+    "output": "..toc-home-icon.className...toc-what-is-icon.className...toc-types-icon.className...toc-examples-icon.className...toc-end-icon.className..",
+    "prevent_initial_call": false,
+    "state": []
+  }
+]
