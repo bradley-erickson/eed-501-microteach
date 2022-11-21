@@ -45,6 +45,8 @@ window.dash_clientside.clientside = {
             output[2] = 'fas fa-circle';
         } else if (s3.includes(current_hash)) {
             output[3] = 'fas fa-circle';
+        } else {
+            output[0] = 'fas fa-circle';
         }
         return output;
     }
