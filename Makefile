@@ -16,7 +16,7 @@ clean:
 	rm -rf build/
 
 gh-pages:
-	cd build && touch .nojekyll && git init && git add * && git add .nojekyll && git commit -m "update" && git remote add origin https://github.com/bradley-erickson/bradley-erickson.github.io.git && git push -f origin master
+	cd build && touch .nojekyll && git init && git add * && git add .nojekyll && git commit -m "update" && git remote add origin https://github.com/bradley-erickson/eed-501-microteach.git && git push -f origin master
 	
 all: gh-pages
 
