@@ -16,3 +16,7 @@ pre {
     border-top-left-radius: 0.5rem !important;
     border-bottom-right-radius: 0.5rem !important
 }
+
+.h2, h2, .h3, h3 {
+    text-align:center!important
+}
